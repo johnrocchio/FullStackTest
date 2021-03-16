@@ -9,16 +9,20 @@
 @section Scripts{
 
     <script>
+        //When select all check box is clicked check all or uncheck all
         $('#selectAllCheckBox').click(function () {
             var totalCheckedBoxes = 0;
             var totalBalance = 0
 
             var chk = $(this).is(':checked');
+            //Loop through the table body and see if check box is already checked
             $('input[type=checkbox]', "#TableBody").each(function () {
                 if (chk) {
+                    //If not checked check it and add one to the totalCheckedBox 
                     $(this).prop('checked', 'checked');
                     totalCheckedBoxes++;
 
+                    //Add the balance from that row
                     var bal = parseInt($(this).closest('tr').find('#balance').text());
                     totalBalance += bal
                 }else {
@@ -26,43 +30,34 @@
                 }
             });
 
+            //Set the text for the totalBalance and the totalCheckedBoxes count
             $("#lblTotalAmount").text(totalBalance);
-            $("#lblTotalChecked").text("Check Row Count: " + totalCheckedBoxes);
+            $("#lblTotalChecked").text(totalCheckedBoxes);
         }); 
 
+        //If any one check box is clicked
         $('.checkbox').click(function () {
-            var totalCheckedBoxes = 0;
+            //Get the totalCheckBox count and total balance values
+            var totalCheckedBoxes = parseInt($("#lblTotalChecked").text());;
             var totalBalance = parseInt($("#lblTotalAmount").text());
 
+            //Check if check box is already checked
             if ($(this).is(':checked')) {
+                //If not checked add to totalCheckedBox count and add the balance from that row
                 var bal = parseInt($(this).closest('tr').find('#balance').text());
+                totalCheckedBoxes++;
                 totalBalance += bal
-            }else{
+            } else {
+                //If  checked subtract to totalCheckedBox count and subtract the balance from that row
                 var bal = parseInt($(this).closest('tr').find('#balance').text());
+                totalCheckedBoxes--;
                 totalBalance -= bal
             }
-            
+
+            //Set the text for the totalBalance and the totalCheckedBoxes count
             $("#lblTotalAmount").text(totalBalance);
+            $("#lblTotalChecked").text(totalCheckedBoxes);
         }); 
-
-
-
-        $('#removeBtn').click(function () {
-            var checkedOff = List;
-            $('input[type=checkbox]', "#TableBody").each(function () {
-                if ($(this).is(':checked')) {
-                    //Delete the rows that are checked off
-                    var tr = $(this).closest('tr');
-                    checkedOff.push(tr);
-                    tr.remove();
-
-                    HomeController.toRemove(checkedOff);
-
-                }
-            });
-
-
-        });
 
     </script>
 }
@@ -70,6 +65,7 @@
 <div class="text-center">
     <form asp-controller="Home" asp-action="Index" method="post">
         <table class="table" id="myTable">
+            <!-- Set the table headers-->
             <thead>
                 <tr>
                     <th>
@@ -86,6 +82,7 @@
                 </tr>
             </thead>
             <tbody id="TableBody">
+                <!--Loop through each item from the json file and add the rows-->
                 @foreach (var item in Model)
                 {
                     <tr>
@@ -115,6 +112,7 @@
             </tbody>
         </table>
 
+        <!--Set the add, remove, Total balance, total row count and total checked elements-->
         <div style="text-align: left">
             <input type="submit" class="btn btn-primary" name="actionBtn" value="Add" id="addBtn" />
             <input type="submit" class="btn btn-primary" name="actionBtn" value="Remove" id="removeBtn" />
@@ -127,7 +125,8 @@
             </div>
             <div>
                 <label>Total Row Count: @Model.Count</label>
-                <label style="margin-left: 30px" id="lblTotalChecked">Check Row Count: 0</label>
+                <label style="margin-left: 30px">Check Row Count: </label>
+                <label id="lblTotalChecked">0</label>
             </div>
         </div>
     </form>

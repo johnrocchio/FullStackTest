@@ -24,12 +24,28 @@
     "balance": 429.0
   },
   {
+    "id": 4,
+    "creditorName": "AMEX",
+    "firstName": "Suman",
+    "lastName": "Tester79",
+    "minPaymentPercentage": 2.0,
+    "balance": 1363.0
+  },
+  {
     "id": 5,
     "creditorName": "DISCOVERBANK",
     "firstName": "Suman",
     "lastName": "Tester79",
     "minPaymentPercentage": 2.0,
     "balance": 2644.0
+  },
+  {
+    "id": 6,
+    "creditorName": "CAPITAL ONE",
+    "firstName": "Suman",
+    "lastName": "Tester79",
+    "minPaymentPercentage": 4.0,
+    "balance": 5464.0
   },
   {
     "id": 7,
@@ -48,27 +64,19 @@
     "balance": 836.0
   },
   {
+    "id": 9,
+    "creditorName": "CBNA",
+    "firstName": "Suman",
+    "lastName": "Tester79",
+    "minPaymentPercentage": 3.5,
+    "balance": 687.0
+  },
+  {
     "id": 10,
     "creditorName": "CBNA",
     "firstName": "Suman",
     "lastName": "Tester79",
     "minPaymentPercentage": 3.5,
     "balance": 235.0
-  },
-  {
-    "id": 11,
-    "creditorName": "test",
-    "firstName": "John",
-    "lastName": "ln",
-    "minPaymentPercentage": 22.0,
-    "balance": 345.0
-  },
-  {
-    "id": 12,
-    "creditorName": "CAPITAL ONE",
-    "firstName": "John",
-    "lastName": "Smith",
-    "minPaymentPercentage": 3.5,
-    "balance": 3463.0
   }
 ]
