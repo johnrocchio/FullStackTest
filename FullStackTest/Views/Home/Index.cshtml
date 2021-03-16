@@ -1,0 +1,134 @@
+﻿@model ICollection<FullStackTest.Models.PersonDataModel>;
+
+
+@{
+    ViewData["Title"] = "Home Page";
+
+}
+
+@section Scripts{
+
+    <script>
+        $('#selectAllCheckBox').click(function () {
+            var totalCheckedBoxes = 0;
+            var totalBalance = 0
+
+            var chk = $(this).is(':checked');
+            $('input[type=checkbox]', "#TableBody").each(function () {
+                if (chk) {
+                    $(this).prop('checked', 'checked');
+                    totalCheckedBoxes++;
+
+                    var bal = parseInt($(this).closest('tr').find('#balance').text());
+                    totalBalance += bal
+                }else {
+                    $(this).prop('checked', '');
+                }
+            });
+
+            $("#lblTotalAmount").text(totalBalance);
+            $("#lblTotalChecked").text("Check Row Count: " + totalCheckedBoxes);
+        }); 
+
+        $('.checkbox').click(function () {
+            var totalCheckedBoxes = 0;
+            var totalBalance = parseInt($("#lblTotalAmount").text());
+
+            if ($(this).is(':checked')) {
+                var bal = parseInt($(this).closest('tr').find('#balance').text());
+                totalBalance += bal
+            }else{
+                var bal = parseInt($(this).closest('tr').find('#balance').text());
+                totalBalance -= bal
+            }
+            
+            $("#lblTotalAmount").text(totalBalance);
+        }); 
+
+
+
+        $('#removeBtn').click(function () {
+            var checkedOff = List;
+            $('input[type=checkbox]', "#TableBody").each(function () {
+                if ($(this).is(':checked')) {
+                    //Delete the rows that are checked off
+                    var tr = $(this).closest('tr');
+                    checkedOff.push(tr);
+                    tr.remove();
+
+                    HomeController.toRemove(checkedOff);
+
+                }
+            });
+
+
+        });
+
+    </script>
+}
+
+<div class="text-center">
+    <form asp-controller="Home" asp-action="Index" method="post">
+        <table class="table" id="myTable">
+            <thead>
+                <tr>
+                    <th>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="selectAllCheckBox">
+                            <label class="custom-control-label" for="selectAllCheckBox"></label>
+                        </div>
+                    </th>
+                    <th scope="col">Creditor</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Min Pay %</th>
+                    <th scope="col">Balance</th>
+                </tr>
+            </thead>
+            <tbody id="TableBody">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <div class="custom-control custom-checkbox">
+                                <input name="peopleChecked" type="checkbox" class="checkbox custom-control-input" value="@item.id" id="@item.id">
+                                <label class="custom-control-label" for="@item.id"></label>
+                            </div>
+                        </td>
+                        <td>@item.creditorName  </td>
+                        <td>@item.firstName </td>
+                        <td>@item.lastName </td>
+                        <td>@item.minPaymentPercentage </td>
+                        <td id="balance">@item.balance </td>
+                    </tr>
+                }
+
+                <tr>
+                    <td></td>
+                    <td><input type="text" id="creditorInput" name="creditorName" /></td>
+                    <td><input type="text" id="firstNameInput" name="firstName" /></td>
+                    <td><input type="text" id="lastNameInput" name="lastName" /></td>
+                    <td><input type="text" id="minPaymentPercentageInput" name="minPaymentPercentage" /></td>
+                    <td><input type="text" id="balanceInput" name="balance" /></td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <div style="text-align: left">
+            <input type="submit" class="btn btn-primary" name="actionBtn" value="Add" id="addBtn" />
+            <input type="submit" class="btn btn-primary" name="actionBtn" value="Remove" id="removeBtn" />
+        </div>
+
+        <div>
+            <div>
+                <label>Total: $</label>
+                <label id="lblTotalAmount">0</label>
+            </div>
+            <div>
+                <label>Total Row Count: @Model.Count</label>
+                <label style="margin-left: 30px" id="lblTotalChecked">Check Row Count: 0</label>
+            </div>
+        </div>
+    </form>
+</div>
