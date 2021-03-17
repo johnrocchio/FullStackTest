@@ -79,7 +79,8 @@ namespace FullStackTest.Controllers
                 }
             }
 
-            return View(people);
+            //Redirect back to index so page can refresh without resending post information.
+            return RedirectToAction("Index", "Home");
         }
 
 
