@@ -48,22 +48,6 @@
     "balance": 5464.0
   },
   {
-    "id": 7,
-    "creditorName": "CAPITAL ONE",
-    "firstName": "Suman",
-    "lastName": "Tester79",
-    "minPaymentPercentage": 4.0,
-    "balance": 2345.0
-  },
-  {
-    "id": 8,
-    "creditorName": "CAPITAL ONE",
-    "firstName": "Suman",
-    "lastName": "Tester79",
-    "minPaymentPercentage": 4.0,
-    "balance": 836.0
-  },
-  {
     "id": 9,
     "creditorName": "CBNA",
     "firstName": "Suman",
@@ -78,5 +62,13 @@
     "lastName": "Tester79",
     "minPaymentPercentage": 3.5,
     "balance": 235.0
+  },
+  {
+    "id": 11,
+    "creditorName": "CAPITAL ONE",
+    "firstName": "John",
+    "lastName": "Smith",
+    "minPaymentPercentage": 3.5,
+    "balance": 3463.0
   }
 ]
